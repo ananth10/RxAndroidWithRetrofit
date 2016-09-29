@@ -71,7 +71,7 @@
             android:gravity="center"
             android:text="No Result Found"
             android:textColor="@color/primaryText"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:visibility="visible" />
     </LinearLayout>
 

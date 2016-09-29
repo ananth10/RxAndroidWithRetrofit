@@ -47,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     private LinearLayout mNoResultLay;
     private FrameLayout mContentLay;
     private ImageView mBackGroundImage;
+    private TextView mNoResult;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
         mGistsCount = (TextView) findViewById(R.id.gist_count);
         mFollowingsCount = (TextView) findViewById(R.id.followings_count);
         mFollowersCount = (TextView) findViewById(R.id.followers_count);
+        mNoResult = (TextView) findViewById(R.id.noresult);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -120,8 +122,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onCompleted() {
                 // Nothing to do here
-                mProgressLay.setVisibility(View.GONE);
-                mContentLay.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -142,30 +142,39 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void bindData(final Github github) {
         String name = github.getLogin();
-        PrefUtils.saveData("username", name, ProfileActivity.this);
-        mUserName.setText(github.getName());
-        mCompany.setText(github.getCompany());
-        mLocation.setText(github.getLocation());
-        mReposCount.setText(""+github.getPublicRepos());
-        mGistsCount.setText(""+github.getPublicGists());
-        mFollowersCount.setText(""+github.getFollowers());
-        mFollowingsCount.setText(""+github.getFollowing());
-        Picasso.with(ProfileActivity.this)
-                .load(github.getAvatarUrl()) // thumbnail url goes here
-                .placeholder(R.mipmap.ic_launcher)
-                .transform(new BlurTransformation(ProfileActivity.this, 40))
-                .into(mBackGroundImage, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        Picasso.with(ProfileActivity.this)
-                                .load(github.getAvatarUrl()) // image url goes here
-                                .placeholder(mUserImage.getDrawable())
-                                .into(mUserImage);
-                    }
+        System.out.println("name :" + name);
+        if (github.getName() != null) {
+            PrefUtils.saveData("username", name, ProfileActivity.this);
+            mUserName.setText(github.getName());
+            mCompany.setText(github.getCompany());
+            mLocation.setText(github.getLocation());
+            mReposCount.setText("" + github.getPublicRepos());
+            mGistsCount.setText("" + github.getPublicGists());
+            mFollowersCount.setText("" + github.getFollowers());
+            mFollowingsCount.setText("" + github.getFollowing());
+            Picasso.with(ProfileActivity.this)
+                    .load(github.getAvatarUrl()) // thumbnail url goes here
+                    .placeholder(R.mipmap.ic_launcher)
+                    .transform(new BlurTransformation(ProfileActivity.this, 40))
+                    .into(mBackGroundImage, new Callback() {
+                        @Override
+                        public void onSuccess() {
+                            Picasso.with(ProfileActivity.this)
+                                    .load(github.getAvatarUrl()) // image url goes here
+                                    .placeholder(mUserImage.getDrawable())
+                                    .into(mUserImage);
+                        }
 
-                    @Override
-                    public void onError() {
-                    }
-                });
+                        @Override
+                        public void onError() {
+                        }
+                    });
+        }
+        else
+        { mContentLay.setVisibility(View.GONE);
+            mNoResultLay.setVisibility(View.VISIBLE);
+            mProgressLay.setVisibility(View.GONE);
+            mNoResult.setText("No User Found");
+        }
     }
 }
