@@ -144,6 +144,9 @@ public class ProfileActivity extends AppCompatActivity {
         String name = github.getLogin();
         System.out.println("name :" + name);
         if (github.getName() != null) {
+            mContentLay.setVisibility(View.VISIBLE);
+            mNoResultLay.setVisibility(View.GONE);
+            mProgressLay.setVisibility(View.GONE);
             PrefUtils.saveData("username", name, ProfileActivity.this);
             mUserName.setText(github.getName());
             mCompany.setText(github.getCompany());
