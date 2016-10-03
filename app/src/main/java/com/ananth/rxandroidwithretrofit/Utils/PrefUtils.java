@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
  * Created by Babu on 9/29/2016.
  */
 public class PrefUtils {
+    public static boolean mSave=true;
     public static final String SAVEPREF = "RxAndroid";
     public static void saveData(String key, String value, Context context) {
         SharedPreferences.Editor editor = context.getSharedPreferences(SAVEPREF, Activity.MODE_PRIVATE).edit();

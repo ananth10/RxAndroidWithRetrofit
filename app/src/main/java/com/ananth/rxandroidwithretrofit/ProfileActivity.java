@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -48,6 +49,11 @@ public class ProfileActivity extends AppCompatActivity {
     private FrameLayout mContentLay;
     private ImageView mBackGroundImage;
     private TextView mNoResult;
+    private LinearLayout mReposLay;
+    private LinearLayout mGistsLay;
+    private LinearLayout mFollowersLay;
+    private LinearLayout mFollowingLay;
+    private TextView mHappyCoding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +71,11 @@ public class ProfileActivity extends AppCompatActivity {
         mGistsCount = (TextView) findViewById(R.id.gist_count);
         mFollowingsCount = (TextView) findViewById(R.id.followings_count);
         mFollowersCount = (TextView) findViewById(R.id.followers_count);
+        mHappyCoding = (TextView) findViewById(R.id.happy_coding);
+        mReposLay = (LinearLayout) findViewById(R.id.repos);
+        mGistsLay = (LinearLayout) findViewById(R.id.gist_lay);
+        mFollowersLay = (LinearLayout) findViewById(R.id.followers);
+        mFollowingLay = (LinearLayout) findViewById(R.id.followings);
         mNoResult = (TextView) findViewById(R.id.noresult);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,7 +84,32 @@ public class ProfileActivity extends AppCompatActivity {
         if (getIntent() != null) {
             mGitUserName = getIntent().getStringExtra("username");
         }
-        call();
+        getUserInfo();
+
+        mReposLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, RepositaryList.class));
+            }
+        });
+        mGistsLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, GistsList.class));
+            }
+        });
+        mFollowersLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, FollowersList.class));
+            }
+        });
+        mFollowingLay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ProfileActivity.this, FollowingsList.class));
+            }
+        });
     }
 
     @Override
@@ -102,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity {
         return true;
     }
 
-    private void call() {
+    private void getUserInfo() {
         mProgressLay.setVisibility(View.VISIBLE);
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
@@ -145,11 +181,18 @@ public class ProfileActivity extends AppCompatActivity {
         System.out.println("name :" + name);
         if (github.getName() != null) {
             mContentLay.setVisibility(View.VISIBLE);
+            mHappyCoding.setVisibility(View.VISIBLE);
             mNoResultLay.setVisibility(View.GONE);
             mProgressLay.setVisibility(View.GONE);
-            PrefUtils.saveData("username", name, ProfileActivity.this);
+            if(PrefUtils.mSave) {
+                PrefUtils.saveData("username", name, ProfileActivity.this);
+            }
             mUserName.setText(github.getName());
-            mCompany.setText(github.getCompany());
+            if (!TextUtils.isEmpty(github.getCompany())) {
+                mCompany.setText(github.getCompany());
+            } else {
+                mCompany.setVisibility(View.GONE);
+            }
             mLocation.setText(github.getLocation());
             mReposCount.setText("" + github.getPublicRepos());
             mGistsCount.setText("" + github.getPublicGists());
@@ -172,9 +215,8 @@ public class ProfileActivity extends AppCompatActivity {
                         public void onError() {
                         }
                     });
-        }
-        else
-        { mContentLay.setVisibility(View.GONE);
+        } else {
+            mContentLay.setVisibility(View.GONE);
             mNoResultLay.setVisibility(View.VISIBLE);
             mProgressLay.setVisibility(View.GONE);
             mNoResult.setText("No User Found");
