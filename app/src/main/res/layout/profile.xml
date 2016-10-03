@@ -246,7 +246,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/followings_count"
+                        android:id="@+id/followers_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
@@ -282,7 +282,7 @@
                         android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/followers_count"
+                        android:id="@+id/followings_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"

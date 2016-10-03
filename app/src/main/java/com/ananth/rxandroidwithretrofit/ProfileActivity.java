@@ -89,25 +89,25 @@ public class ProfileActivity extends AppCompatActivity {
         mReposLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, RepositaryList.class));
+                startActivity(new Intent(ProfileActivity.this, RepositaryList.class).putExtra("username",mGitUserName));
             }
         });
         mGistsLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, GistsList.class));
+                startActivity(new Intent(ProfileActivity.this, GistsList.class).putExtra("username",mGitUserName));
             }
         });
         mFollowersLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, FollowersList.class));
+                startActivity(new Intent(ProfileActivity.this, FollowersList.class).putExtra("username",mGitUserName));
             }
         });
         mFollowingLay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ProfileActivity.this, FollowingsList.class));
+                startActivity(new Intent(ProfileActivity.this, FollowingsList.class).putExtra("username",mGitUserName));
             }
         });
     }

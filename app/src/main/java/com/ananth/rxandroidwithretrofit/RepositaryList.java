@@ -32,6 +32,7 @@ public class RepositaryList extends AppCompatActivity {
     private LinearLayout mProgressLay;
     private LinearLayout mNoResultLay;
     private Toolbar toolbar;
+    private String mUserName="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +45,10 @@ public class RepositaryList extends AppCompatActivity {
         mRv = (RecyclerView) findViewById(R.id.repos_list);
         mProgressLay = (LinearLayout) findViewById(R.id.progress_lay);
         mNoResultLay = (LinearLayout) findViewById(R.id.no_result_lay);
+        if(getIntent()!=null)
+        {
+            mUserName=getIntent().getStringExtra("username");
+        }
         setupRecyclerView();
         getReposList();
     }
@@ -68,9 +73,7 @@ public class RepositaryList extends AppCompatActivity {
     }
 
     private void getReposList() {
-        String mUserName = PrefUtils.getData("username", RepositaryList.this);
         mProgressLay.setVisibility(View.VISIBLE);
-
         Retrofit retrofit = new Retrofit.Builder()
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
