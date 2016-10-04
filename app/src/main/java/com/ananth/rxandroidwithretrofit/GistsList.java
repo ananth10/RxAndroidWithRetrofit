@@ -128,7 +128,6 @@ public class GistsList extends AppCompatActivity {
                 if (e instanceof HttpException) {
                     HttpException response = null;
                     int code = response.code();
-                    System.out.println("code :" + code);
                 }
             }
 

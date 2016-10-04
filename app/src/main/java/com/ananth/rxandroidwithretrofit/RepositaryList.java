@@ -8,7 +8,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
-import com.ananth.rxandroidwithretrofit.Utils.PrefUtils;
 import com.ananth.rxandroidwithretrofit.adapters.ReposAdapter;
 import com.ananth.rxandroidwithretrofit.model.GitRepo;
 import com.ananth.rxandroidwithretrofit.service.GitReposService;
@@ -119,7 +118,6 @@ public class RepositaryList extends AppCompatActivity {
                 if (e instanceof HttpException) {
                     HttpException response = null;
                     int code = response.code();
-                    System.out.println("code :" + code);
                 }
             }
 
