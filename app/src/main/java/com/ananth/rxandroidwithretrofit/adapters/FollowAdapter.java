@@ -31,7 +31,6 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.ViewHolder
     private View mView1;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public String mBoundString;
         public final View mView;
         public TextView mUserName;
         public ImageView mUserImage;
@@ -65,8 +64,6 @@ public class FollowAdapter extends RecyclerView.Adapter<FollowAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-//            holder.mBoundString = mValues.get(position);
-//            holder.mTextView.setText(mValues.get(position));
         holder.mUserName.setText(mValues.get(position).get("name"));
         Picasso.with(mContext)
                 .load(mValues.get(position).get("image")) // image url goes here

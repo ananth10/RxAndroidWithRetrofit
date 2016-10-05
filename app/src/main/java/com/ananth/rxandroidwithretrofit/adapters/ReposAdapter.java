@@ -42,15 +42,8 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.ViewHolder> 
             mOwner = (TextView) view.findViewById(R.id.name);
         }
 
-//            @Override
-//            public String toString() {
-//                return super.toString() + " '" + mTextView.getText();
-//            }
     }
 
-//        public String getValueAt(int position) {
-//            return mValues.get(position);
-//        }
 
     public ReposAdapter(Context context, List<HashMap<String, String>> items) {
         context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
@@ -68,8 +61,6 @@ public class ReposAdapter extends RecyclerView.Adapter<ReposAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-//            holder.mBoundString = mValues.get(position);
-//            holder.mTextView.setText(mValues.get(position));
         holder.mTitle.setText(mValues.get(position).get("name"));
         if (!TextUtils.isEmpty(mValues.get(position).get("description"))) {
             holder.mDescription.setText(mValues.get(position).get("description"));

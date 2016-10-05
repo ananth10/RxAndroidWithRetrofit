@@ -39,16 +39,8 @@ public class GistsAdapter extends RecyclerView.Adapter<GistsAdapter.ViewHolder> 
             mUrl = (TextView) view.findViewById(R.id.url);
             mOwner = (TextView) view.findViewById(R.id.name);
         }
-
-//            @Override
-//            public String toString() {
-//                return super.toString() + " '" + mTextView.getText();
-//            }
     }
 
-//        public String getValueAt(int position) {
-//            return mValues.get(position);
-//        }
 
     public GistsAdapter(Context context, List<HashMap<String, String>> items) {
         context.getTheme().resolveAttribute(R.attr.selectableItemBackground, mTypedValue, true);
@@ -66,8 +58,6 @@ public class GistsAdapter extends RecyclerView.Adapter<GistsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, final int position) {
-//            holder.mBoundString = mValues.get(position);
-//            holder.mTextView.setText(mValues.get(position));
         holder.mTitle.setVisibility(View.GONE);
         if (!TextUtils.isEmpty(mValues.get(position).get("description"))) {
             holder.mDescription.setText(mValues.get(position).get("description"));
